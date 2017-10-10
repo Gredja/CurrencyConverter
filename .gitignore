@@ -19,7 +19,8 @@ x64/
 x86/
 bld/
 lib/
-.vs/
+vs/
+.bower/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
@@ -239,3 +240,6 @@ _Pvt_Extensions
 .fake/
 src/uQontrolApp.VC.db
 **/__pycache__
+
+CurrencyConverter/.vs/CurrencyConverter/v15/.suo
+CurrencyConverter/.vs/CurrencyConverter/v15/sqlite3/storage.ide
