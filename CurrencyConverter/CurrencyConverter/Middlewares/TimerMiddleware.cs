@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CurrencyConverter.Middlewares
 {
-    public class TimerMiddleware : ITimeService
+    public class TimerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly TimeService _timeService;
@@ -14,10 +14,6 @@ namespace CurrencyConverter.Middlewares
             _timeService = timeService;
         }
 
-        public string GetTime()
-        {
-            //TODO
-            return null;
-        }
+
     }
 }
