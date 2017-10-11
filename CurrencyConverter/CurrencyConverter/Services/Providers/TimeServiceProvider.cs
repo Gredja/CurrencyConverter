@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CurrencyConverter.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CurrencyConverter.Services.Providers
 {
@@ -6,7 +7,7 @@ namespace CurrencyConverter.Services.Providers
     {
         public static void AddTimeService(this IServiceCollection services)
         {
-            services.AddTransient<TimeService>();
+            services.AddTransient<ITimeService, TimeService>();
         }
     }
 }
