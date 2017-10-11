@@ -1,37 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CurrencyConverter.Services.Interfaces;
+using CurrencyConverter.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using CurrencyConverter.Models;
 
 namespace CurrencyConverter.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICurrencyConverter _currencyConverter;
+
+        public HomeController(ICurrencyConverter currencyConverter)
+        {
+            _currencyConverter = currencyConverter;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var model = new AllCurrrencyTypesViewModel { CurrencyTypes = _currencyConverter.GetAllCurrencies() };
+
+            return View(model);
         }
 
-        public IActionResult About()
+        public IActionResult MyViewComponent()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return ViewComponent("CurrentTimeTimer");
         }
 
-        public IActionResult Contact()
+        public IActionResult Convert(AllCurrrencyTypesViewModel model)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View("Index");
         }
     }
 }
