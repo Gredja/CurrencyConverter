@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using CurrencyConverter.Models;
 using CurrencyConverter.Services.Interfaces;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CurrencyConverter.Services
 {
     public class CurrencyConverter : ICurrencyConverter
     {
-        public string GetCurrencyConversion(decimal amount, string fromCurrency, string toCurrency)
+        public decimal GetCurrencyConversion(decimal amount, string fromCurrency, string toCurrency)
         {
             var request = GetConvertRequest(fromCurrency, toCurrency);
             var response = ExecuteRequest(request);
-            var exchangeRate = decimal.Parse(response, CultureInfo.InvariantCulture);
+            JObject data = (JObject)JsonConvert.DeserializeObject(response);
+            var rate = (decimal) data.Children().First().Children().Values().First();
 
-            return (amount * exchangeRate).ToString("N3");
+            return amount *  rate;
         }
 
         public List<string> GetAllCurrencies()
@@ -35,7 +38,7 @@ namespace CurrencyConverter.Services
 
         private string GetConvertRequest(string fromCurrency, string toCurrency)
         {
-            return string.Format("http://finance.yahoo.com/d/quotes.csv?s={0}{1}=X&f=l1", fromCurrency, toCurrency);
+            return string.Format("http://free.currencyconverterapi.com/api/v3/convert?q={0}_{1}&compact=y", fromCurrency, toCurrency);
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Rendering
 @using CurrencyConverter.ViewModels;
 
-@model AllCurrrencyTypesViewModel
+@model CurrrencyViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -15,15 +15,6 @@
 }
 
 
-@*<script>
-        var container = $("#timeContainer");
-        var refreshComponent = function () {
-            $.get("/Home/MyViewComponent", function (data) { container.html(data); });
-        };
-
-        $(function () { window.setInterval(refreshComponent, 1000); });
-    </script>*@
-
 <div id="timeContainer">
     @await Component.InvokeAsync("CurrentTimeTimer")
 </div>
@@ -34,24 +25,20 @@
     <table>
         <tr>
             <td>
-      
-          @*@Html.TextBox()*@
+                @Html.TextBox("Amount", 1)
             </td>
             <td>
-                @Html.DropDownListFor(m => m.Currency, new SelectList(Model.CurrencyTypes), "Select Currency")
+                @Html.DropDownListFor(m => m.CurrencyFrom, new SelectList(Model.CurrencyTypes))
             </td>
         </tr>
-        
-        <tr>
-            <td>
-                @*@Html.TextBox()*@
 
-            </td>
+        <tr>
+            <td></td>
             <td>
-                @Html.DropDownListFor(m => m.Currency, new SelectList(Model.CurrencyTypes), "Select Currency")
+                @Html.DropDownListFor(m => m.CurrencyTo, new SelectList(Model.CurrencyTypes))
             </td>
         </tr>
-        
+
         <tr>
             <td colspan="2">
                 <input type="submit" value="submit" />

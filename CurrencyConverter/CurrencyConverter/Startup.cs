@@ -39,6 +39,7 @@ namespace CurrencyConverter
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("Pictures", "{controller=Pictures}/{action=Index}/{id?}");
             });
         }
     }

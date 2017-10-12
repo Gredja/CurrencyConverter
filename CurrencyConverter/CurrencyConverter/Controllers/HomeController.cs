@@ -1,6 +1,7 @@
 ﻿using CurrencyConverter.Services.Interfaces;
 using CurrencyConverter.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CurrencyConverter.Controllers
 {
@@ -15,7 +16,7 @@ namespace CurrencyConverter.Controllers
 
         public IActionResult Index()
         {
-            var model = new AllCurrrencyTypesViewModel { CurrencyTypes = _currencyConverter.GetAllCurrencies() };
+            var model = new CurrrencyViewModel { CurrencyTypes = _currencyConverter.GetAllCurrencies() };
 
             return View(model);
         }
@@ -25,9 +26,16 @@ namespace CurrencyConverter.Controllers
             return ViewComponent("CurrentTimeTimer");
         }
 
-        public IActionResult Convert(AllCurrrencyTypesViewModel model)
+        [HttpPost]
+        public IActionResult Convert(CurrrencyViewModel model)
         {
-            return View("Index");
+            if (ModelState.IsValid)
+            {
+                ViewData["Result"] = _currencyConverter.GetCurrencyConversion(model.Amount, model.CurrencyFrom, model.CurrencyTo);
+                return View("Convert");
+            }
+
+            return View("Index", model);
         }
     }
 }

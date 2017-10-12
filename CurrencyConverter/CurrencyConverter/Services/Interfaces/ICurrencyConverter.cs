@@ -4,7 +4,7 @@ namespace CurrencyConverter.Services.Interfaces
 {
     public interface ICurrencyConverter
     {
-        string GetCurrencyConversion(decimal amount, string fromCurrency, string toCurrency);
+        decimal GetCurrencyConversion(decimal amount, string fromCurrency, string toCurrency);
 
         List<string> GetAllCurrencies();
     }
