@@ -1,4 +1,5 @@
-﻿using CurrencyConverter.Services.Providers;
+﻿using System.IO;
+using CurrencyConverter.Services.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ namespace CurrencyConverter
             services.AddMvc();
             services.AddTimeService();
             services.AddCurrencyConverter();
+            services.AddPictureStorage();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -36,10 +38,12 @@ namespace CurrencyConverter
 
             app.UseStaticFiles();
 
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("Pictures", "{controller=Pictures}/{action=Index}/{id?}");
+                routes.MapRoute("Picture", "{controller=Pictures}/{id?}");
             });
         }
     }

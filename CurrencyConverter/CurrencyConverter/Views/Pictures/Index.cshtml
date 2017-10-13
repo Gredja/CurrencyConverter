@@ -1,1 +1,12 @@
-﻿<p>dfgdfsg dsfg dfgdsf dfs</p>
+﻿@model string[]
+
+<table>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink(@item, "ShowPicture", "Pictures", new {id = item})
+               
+            </td>
+        </tr>
+    }
+</table>

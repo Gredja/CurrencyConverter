@@ -35,7 +35,9 @@ namespace CurrencyConverter.Controllers
                 return View("Convert");
             }
 
-            return View("Index", model);
+            var emptyModel = new CurrrencyViewModel { CurrencyTypes = _currencyConverter.GetAllCurrencies() };
+
+            return View(emptyModel);
         }
     }
 }
