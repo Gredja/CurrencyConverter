@@ -15,8 +15,21 @@
 }
 
 
-<div id="timeContainer" class="container-fluid" style="background: aqua; border-color: red; border: 10px;">
-    @await Component.InvokeAsync("CurrentTimeTimer")
+<div id="timeContainer" class="container" style="background: aqua; border-color: red; border: 10px;">
+    
+    <div class="row">
+        <div class="col-sm-12">
+              @await Component.InvokeAsync("CurrentTimeTimer")
+        </div>
+        <div class="col-sm-6" style="background: yellow">
+            One of three columns
+        </div>
+        <div class="col-sm-6">
+            One of three columns
+        </div>
+    </div>
+
+  
 </div>
 
 @using (Html.BeginForm("Convert", "Home", FormMethod.Post))
