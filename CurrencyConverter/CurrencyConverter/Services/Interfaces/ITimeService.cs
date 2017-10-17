@@ -1,4 +1,4 @@
-﻿namespace CurrencyConverter.Middlewares.Interfaces
+﻿namespace CurrencyConverter.Services.Interfaces
 {
    public interface ITimeService
    {

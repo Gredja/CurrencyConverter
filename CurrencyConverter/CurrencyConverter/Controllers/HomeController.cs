@@ -1,37 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CurrencyConverter.Services.Interfaces;
+using CurrencyConverter.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using CurrencyConverter.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CurrencyConverter.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICurrencyConverter _currencyConverter;
+
+        public HomeController(ICurrencyConverter currencyConverter)
+        {
+            _currencyConverter = currencyConverter;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var model = new CurrrencyViewModel { CurrencyTypes = _currencyConverter.GetAllCurrencies() };
+
+            return View(model);
         }
 
-        public IActionResult About()
+        public IActionResult MyViewComponent()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return ViewComponent("CurrentTimeTimer");
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult Convert(CurrrencyViewModel model)
         {
-            ViewData["Message"] = "Your contact page.";
+            if (ModelState.IsValid)
+            {
+                ViewData["Result"] = _currencyConverter.GetCurrencyConversion(model.Amount, model.CurrencyFrom, model.CurrencyTo);
+                return View("Convert");
+            }
 
-            return View();
-        }
+            var emptyModel = new CurrrencyViewModel { CurrencyTypes = _currencyConverter.GetAllCurrencies() };
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(emptyModel);
         }
     }
 }
